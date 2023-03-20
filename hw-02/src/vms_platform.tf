@@ -25,9 +25,22 @@ variable "default_cidr" {
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
 
+variable "default_cidr2" {
+  type        = list(string)
+  default     = ["10.1.1.0/24"]
+  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+}
+
+
 variable "vpc_name" {
   type        = string
   default     = "develop"
+  description = "VPC network & subnet name"
+}
+
+variable "vpc_name2" {
+  type        = string
+  default     = "develop2"
   description = "VPC network & subnet name"
 }
 
@@ -42,6 +55,24 @@ variable "vms_ssh_root_key" {
 }
 
 #Замена перемекнных
+
+variable "vm_db_os" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "ubuntu-2004-lts"
+}
+
+variable "vm_db_inst" {
+  type        = string
+  default     = "netology-develop-platform-db"
+  description = "netology-develop-platform-db"
+}
+
+variable "vm_db_platf" {
+  type        = string
+  default     = "standard-v1"
+  description = "standard-v1"
+}
 
 variable "vm_web_os" {
   type        = string
