@@ -47,12 +47,12 @@ variable "vpc_name2" {
 
 ###ssh vars
 
-variable "vms_ssh_root_key" {
-  type        = string
-  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
+#variable "vms_ssh_root_key" {
+#  type        = string
+#  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
 #  default     = "<your_ssh_ed25519_key>"
 #  description = "ssh-keygen -t ed25519"
-}
+#}
 
 #Замена перемекнных
 
@@ -90,4 +90,30 @@ variable "vm_web_platf" {
   type        = string
   default     = "standard-v1"
   description = "standard-v1"
+}
+
+variable "vm_web_resources" {
+  type = map
+  default = {
+    cores          = 2
+    memory         = 1
+    core_fraction  = 5
+  }
+}
+
+variable "vm_db_resources" {
+  type = map
+  default = {
+    cores          = 2
+    memory         = 2
+    core_fraction  = 20
+  }
+}
+
+variable "vm_metadata" {
+  type = map
+  default = {
+    serial-port-enable = 1
+    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
+  }
 }
