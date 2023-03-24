@@ -30,3 +30,35 @@ variable "vpc_name" {
   default     = "develop"
   description = "VPC network&subnet name"
 }
+
+#Мои переменные
+
+variable "vm_web_inst" {
+  type        = string
+  default     = "netology-develop-platform-web"
+  description = "netology-develop-platform-web"
+}
+
+variable "vm_web_platf" {
+  type        = string
+  default     = "standard-v1"
+  description = "standard-v1"
+}
+
+
+variable "vm_web_resources" {
+  type = map
+  default = {
+    cores          = 2
+    memory         = 1
+    core_fraction  = 5
+  }
+}
+
+variable "vm_metadata" {
+  type = map
+  default = {
+    serial-port-enable = 1
+    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
+  }
+}
