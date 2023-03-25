@@ -31,6 +31,13 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
+variable "vpc_name2" {
+  type        = string
+  default     = "develop2"
+  description = "VPC network&subnet name"
+}
+
+
 #Мои переменные
 
 variable "vm_web_os" {
@@ -66,7 +73,7 @@ variable "vm_resources" {
   type = map
   default = {
     cores          = 2
-    memory         = 1
+    memory         = 2
     core_fraction  = 5
   }
 }
@@ -89,7 +96,7 @@ variable "vms" {
     {
       vm_name = "vm2"
       cpu     = 2
-      ram     = 1
+      ram     = 4
       disk    = 7
     }
   ]

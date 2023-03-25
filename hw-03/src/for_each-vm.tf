@@ -1,10 +1,10 @@
 resource "yandex_vpc_network" "network" {
-  name = var.vpc_name
+  name = var.vpc_name2
 }
 
 resource "yandex_vpc_subnet" "subnet" {
 #  for_each      = var.vms
-  name          = var.vpc_name
+  name          = var.vpc_name2
   network_id    = yandex_vpc_network.network.id
   zone          = var.default_zone
   v4_cidr_blocks = var.default_cidr
