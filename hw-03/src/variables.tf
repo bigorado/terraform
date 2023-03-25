@@ -33,6 +33,12 @@ variable "vpc_name" {
 
 #Мои переменные
 
+variable "vm_web_os" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "ubuntu-2004-lts"
+}
+
 variable "vm_web_inst" {
   type        = string
   default     = "netology-develop-platform-web"
@@ -46,7 +52,17 @@ variable "vm_web_platf" {
 }
 
 
-variable "vm_web_resources" {
+variable "vm_metadata" {
+  type = map
+  default = {
+    serial-port-enable = 1
+#    ssh-key            = local.sshkey
+#    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
+  }
+}
+
+#Переменные с ресурсами машин
+variable "vm_resources" {
   type = map
   default = {
     cores          = 2
@@ -55,10 +71,26 @@ variable "vm_web_resources" {
   }
 }
 
-variable "vm_metadata" {
-  type = map
-  default = {
-    serial-port-enable = 1
-    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
-  }
+
+variable "vms" {
+  type = list(object({
+    vm_name = string
+    cpu     = number
+    ram     = number
+    disk    = number
+  }))
+  default = [
+    {
+      vm_name = "vm1"
+      cpu     = 2
+      ram     = 2
+      disk    = 5
+    },
+    {
+      vm_name = "vm2"
+      cpu     = 2
+      ram     = 1
+      disk    = 7
+    }
+  ]
 }
