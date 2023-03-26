@@ -31,14 +31,20 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-variable "vpc_name2" {
-  type        = string
-  default     = "develop2"
-  description = "VPC network&subnet name"
-}
+#variable "vpc_name2" {
+#  type        = string
+#  default     = "develop2"
+#  description = "VPC network&subnet name"
+#}
 
 
 #Мои переменные
+
+variable "security_group" {
+  type        = string
+  default     = "enpbksq984ap23csol2u"
+  description = "Security Group"
+}
 
 variable "vm_web_os" {
   type        = string
@@ -63,10 +69,18 @@ variable "vm_metadata" {
   type = map
   default = {
     serial-port-enable = 1
+#    ssh-keys = file("${path.module}/id_ed25519.pub")
 #    ssh-key            = local.sshkey
-#    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
+    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
   }
 }
+
+variable "ssh_key" {
+  type        = string
+  description = "Path to the ssh key file"
+  default     = "~/.ssh/id_ed25519"
+}
+
 
 #Переменные с ресурсами машин
 variable "vm_resources" {

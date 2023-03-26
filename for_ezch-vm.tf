@@ -1,14 +1,13 @@
-resource "yandex_vpc_network" "network" {
-  name = var.vpc_name2
-}
+#resource "yandex_vpc_network" "network" {
+#  name = var.vpc_name2
+#}
 
-resource "yandex_vpc_subnet" "subnet" {
-#  for_each      = var.vms
-  name          = var.vpc_name2
-  network_id    = yandex_vpc_network.network.id
-  zone          = var.default_zone
-  v4_cidr_blocks = var.default_cidr
-}
+#resource "yandex_vpc_subnet" "subnet" {
+#  name          = var.vpc_name2
+#  network_id    = yandex_vpc_network.network.id
+#  zone          = var.default_zone
+#  v4_cidr_blocks = var.default_cidr
+#}
 
 resource "yandex_compute_instance" "vm" {
   for_each = {
@@ -19,10 +18,6 @@ resource "yandex_compute_instance" "vm" {
       disk  = vm.disk
     }
   }
-
-#  name           = each.value.name
-#  platform_id    = var.vm_web_platf
-#  boot_disk_size = each.value.disk
 
   resources {
     cores  = each.value.cpu
