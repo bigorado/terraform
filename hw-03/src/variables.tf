@@ -71,7 +71,7 @@ variable "vm_metadata" {
     serial-port-enable = 1
 #    ssh-keys = file("${path.module}/id_ed25519.pub")
 #    ssh-key            = local.sshkey
-    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
+#    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
   }
 }
 

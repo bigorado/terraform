@@ -45,11 +45,11 @@ resources {
     nat       = true
   }
 
-#  metadata = {
+  metadata = {
 #    serial-port-enable = var.vm_metadata.serial-port-enable
-#    ssh-keys           = local.sshkey
+    ssh-keys           = local.ssh_key
 #    ssh-keys           = var.vm_metadata.ssh-key
-#  }
+  }
 }
 
 #For_each
@@ -84,11 +84,11 @@ resource "yandex_compute_instance" "vm" {
     preemptible = true
   }
 
-#  metadata = {
-#    serial-port-enable = var.vm_metadata.serial-port-enable
-#    ssh-keys           = local.sshkey
+  metadata = {
+    serial-port-enable = var.vm_metadata.serial-port-enable
+    ssh-keys           = local.ssh_key
 #   ssh-keys           = var.vm_metadata.ssh-key
-#  }
+  }
 
   depends_on = [yandex_compute_instance.platform[0]]
 
