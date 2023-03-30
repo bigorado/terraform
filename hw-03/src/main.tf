@@ -17,6 +17,14 @@ resource "yandex_vpc_subnet" "develop" {
 #  template = "${file("${path.module}/inventory.tpl")}"
 #}
 
+resource "local_file" "hosts_cfg" {
+  content = templatefile("${path.module}/hosts.tftpl",
+    { webservers1 =  yandex_compute_instance.platform
+      webservers2 =  yandex_compute_instance.vm } )
+
+  filename = "${abspath(path.module)}/hosts.cfg"
+}
+
 #Count
 
 data "yandex_compute_image" "ubuntu" {
