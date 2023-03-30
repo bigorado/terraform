@@ -13,8 +13,8 @@ data "yandex_compute_image" "ubuntu" {
   family = "${var.vm_web_os}"
 }
 resource "yandex_compute_instance" "platform" {
-  name        = "${ var.vm_web_platf }-${ var.vm_web_inst }"
-#  platform_id = "${var.vm_web_platf}"
+  name        = "${local.vm_web}"
+  platform_id = "${var.vm_web_platf}"
 resources {
     cores         = var.vm_web_resources.cores
     memory        = var.vm_web_resources.memory

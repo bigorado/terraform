@@ -110,6 +110,13 @@ variable "vm_db_resources" {
   }
 }
 
+variable "develop" {
+  type        = string
+  default     = "develop"
+  description = "develop"
+}
+
+
 variable "vm_metadata" {
   type = map
   default = {
