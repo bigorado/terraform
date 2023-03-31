@@ -10,10 +10,11 @@ resource "yandex_vpc_subnet" "develop" {
 }
 
 #Разобраться с инвентаризацией
-#resource "local_file" "hosts_cfg" {
-#  content = templatefile("${path.module}/hosts.tftpl",
-#    { webservers1 =  yandex_compute_instance.platform
-#      webservers2 =  [ for i in yandex_compute_instance.vm :i] } )
-#
-#  filename = "${abspath(path.module)}/hosts.cfg"
-#}
+resource "local_file" "hosts_cfg" {
+  content = templatefile("${path.module}/hosts.tftpl",
+    { webservers1 =  yandex_compute_instance.platform
+      webservers2 =  yandex_compute_instance.vms 
+  } )
+
+  filename = "${abspath(path.module)}/hosts.cfg"
+}

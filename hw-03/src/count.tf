@@ -27,7 +27,7 @@ resources {
   }
 
   metadata = {
-#    serial-port-enable = var.vm_metadata.serial-port-enable
+    serial-port-enable = var.vm_metadata.serial-port-enable
     ssh-keys           = "ubuntu:${local.ssh_key}"
   }
 }

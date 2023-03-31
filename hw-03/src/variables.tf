@@ -92,20 +92,6 @@ variable "vm_resources" {
   }
 }
 
-#variable "vm" {
-#  type        = map(any)
-#  default = {
-#   vm1 = {
-#      zone     = "ru-central1-a"
-#      subnet   = "subnet"
-#    },
-#    vm2 = {
-#      zone     = "ru-central1-b"
-#      subnet   = "subnet"
-#    }
-#  }
-#}
-
 variable "vm" {
   type = list(object({
     vm_name = string
@@ -128,3 +114,4 @@ variable "vm" {
     }
   ]
 }
+

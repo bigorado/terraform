@@ -1,8 +1,7 @@
 resource "yandex_compute_instance" "vms" {
+  depends_on = [yandex_compute_instance.platform]
   for_each = { for vm in var.vm : vm.vm_name => vm }
-#  for_each = "vm-${var.vm}"
   name     = each.key
-#  zone     = each.value.zone
 
   resources {
     cores  = 2
@@ -18,8 +17,7 @@ resource "yandex_compute_instance" "vms" {
 
   network_interface {
     subnet_id           = yandex_vpc_subnet.develop.id
-#    subnet_id           = yandex_vpc_subnet.develop["${each.value.subnet}"].id
-#    security_group_ids = ["${yandex_vpc_security_group.webservers-sg.id}"]
+    nat = true
   }
 
   metadata = {
