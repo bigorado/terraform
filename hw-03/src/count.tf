@@ -3,6 +3,7 @@
 data "yandex_compute_image" "ubuntu" {
   family = "${var.vm_web_os}"
 }
+
 #Описание ресурса и создание 2 одинаковых машин
 resource "yandex_compute_instance" "platform" {
   count = 2
@@ -21,6 +22,7 @@ resources {
   scheduling_policy {
     preemptible = true
   }
+
 #Подсеть и группа безопасности
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id

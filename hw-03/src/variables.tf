@@ -31,14 +31,9 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-#variable "vpc_name2" {
-#  type        = string
-#  default     = "develop2"
-#  description = "VPC network&subnet name"
-#}
-
 
 #Мои переменные
+
 #Группа безопасности
 variable "security_group" {
   type        = string
@@ -73,6 +68,12 @@ variable "ssh_key" {
   default     = "~/.ssh/id_ed25519"
 }
 
+variable "vm_metadata" {
+  type = map
+  default = {
+    serial-port-enable = 1
+  }
+}
 
 #Переменные с ресурсами машин
 variable "vm_resources" {
