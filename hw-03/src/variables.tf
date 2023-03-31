@@ -92,26 +92,39 @@ variable "vm_resources" {
   }
 }
 
-
-variable "vms" {
-  type = list(object({
-    vm_name = string
-    cpu     = number
-    ram     = number
-    disk    = number
-  }))
-  default = [
-    {
-      vm_name = "vm1"
-      cpu     = 2
-      ram     = 2
-      disk    = 5
+variable "vm" {
+  type        = map(any)
+  default = {
+   vm1 = {
+      zone     = "ru-central1-a"
+      subnet   = "subnet"
     },
-    {
-      vm_name = "vm2"
-      cpu     = 2
-      ram     = 4
-      disk    = 7
+    vm2 = {
+      zone     = "ru-central1-b"
+      subnet   = "subnet"
     }
-  ]
+  }
 }
+
+#variable "vms" {
+#  type = list(object({
+#    vm_name = string
+#    cpu     = number
+#    ram     = number
+#    disk    = number
+#  }))
+#  default = [
+#    {
+#      vm_name = "vm1"
+#      cpu     = 2
+#      ram     = 2
+#      disk    = 5
+#    },
+#    {
+#      vm_name = "vm2"
+#      cpu     = 2
+#      ram     = 4
+#      disk    = 7
+#    }
+#  ]
+#}

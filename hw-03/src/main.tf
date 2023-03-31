@@ -13,17 +13,13 @@ resource "yandex_vpc_subnet" "develop" {
 }
 
 #Разобраться с инвентаризацией
-#data "template_file" "inventory_file" {
-#  template = "${file("${path.module}/inventory.tpl")}"
+#resource "local_file" "hosts_cfg" {
+#  content = templatefile("${path.module}/hosts.tftpl",
+#    { webservers1 =  yandex_compute_instance.platform
+#      webservers2 =  [ for i in yandex_compute_instance.vm :i] } )
+#
+#  filename = "${abspath(path.module)}/hosts.cfg"
 #}
-
-resource "local_file" "hosts_cfg" {
-  content = templatefile("${path.module}/hosts.tftpl",
-    { webservers1 =  yandex_compute_instance.platform
-      webservers2 =  yandex_compute_instance.vm } )
-
-  filename = "${abspath(path.module)}/hosts.cfg"
-}
 
 #Count
 
@@ -56,48 +52,52 @@ resources {
   metadata = {
 #    serial-port-enable = var.vm_metadata.serial-port-enable
     ssh-keys           = local.ssh_key
-#    ssh-keys           = var.vm_metadata.ssh-key
   }
 }
 
 #For_each
 
-resource "yandex_compute_instance" "vm" {
-  for_each = {
-    for idx, vm in var.vms : vm.vm_name => {
-      name  = "vm-${vm.vm_name}"
-      cpu   = vm.cpu
-      ram   = vm.ram
-      disk  = vm.disk
-    }
-  }
-
-  resources {
-    cores  = each.value.cpu
-    memory = each.value.ram
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = data.yandex_compute_image.ubuntu.image_id
-    }
- }
-
-  network_interface {
-    subnet_id = yandex_vpc_subnet.develop.id
-    nat       = true
-  }
-
-  scheduling_policy {
-    preemptible = true
-  }
-
-  metadata = {
-    serial-port-enable = var.vm_metadata.serial-port-enable
-    ssh-keys           = local.ssh_key
-#   ssh-keys           = var.vm_metadata.ssh-key
-  }
-
-  depends_on = [yandex_compute_instance.platform[0]]
-
-}
+#resource "yandex_compute_instance" "vm" {
+#  for_each = {
+#    for idx, vm in var.vms : vm.vm_name => {
+#      name  = "vm-${vm.vm_name}"
+#      name  = each.key
+#      cpu   = vm.cpu
+#      ram   = vm.ram
+#      disk  = vm.disk
+#  }
+#  }
+#
+#resource "yandex_compute_instance" "vm" {
+#   for_each = "vm-${var.vms}"
+#      name  = each.key
+#  resources {
+#      name  = each.key
+#      cpu   = vm.cpu
+#      ram   = vm.ram
+#      disk  = vm.disk
+#  }
+#
+#  boot_disk {
+#    initialize_params {
+#      image_id = data.yandex_compute_image.ubuntu.image_id
+#    }
+# }
+#
+#  network_interface {
+#    subnet_id = yandex_vpc_subnet.develop.id
+#    nat       = true
+#  }
+#
+#  scheduling_policy {
+#    preemptible = true
+#  }
+#
+#  metadata = {
+#    serial-port-enable = var.vm_metadata.serial-port-enable
+#    ssh-keys           = local.ssh_key
+#  }
+#
+#  depends_on = [yandex_compute_instance.platform[0]]
+#
+#}
