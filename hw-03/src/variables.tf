@@ -31,27 +31,24 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-#variable "vpc_name2" {
-#  type        = string
-#  default     = "develop2"
-#  description = "VPC network&subnet name"
-#}
-
 
 #Мои переменные
 
+#Группа безопасности
 variable "security_group" {
   type        = string
   default     = "enpbksq984ap23csol2u"
   description = "Security Group"
 }
 
+#ОС
 variable "vm_web_os" {
   type        = string
   default     = "ubuntu-2004-lts"
   description = "ubuntu-2004-lts"
 }
 
+#Имя машины
 variable "vm_web_inst" {
   type        = string
   default     = "netology-develop-platform-web"
@@ -64,23 +61,19 @@ variable "vm_web_platf" {
   description = "standard-v1"
 }
 
-
-variable "vm_metadata" {
-  type = map
-  default = {
-    serial-port-enable = 1
-#    ssh-keys = file("${path.module}/id_ed25519.pub")
-#    ssh-key            = local.sshkey
-#    ssh-key            = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSFLz5Ihh8FI+W2VZSFyIj5qEEbb/A3hQykKWjK2sth"
-  }
-}
-
+#SSH ключ
 variable "ssh_key" {
   type        = string
   description = "Path to the ssh key file"
   default     = "~/.ssh/id_ed25519"
 }
 
+variable "vm_metadata" {
+  type = map
+  default = {
+    serial-port-enable = 1
+  }
+}
 
 #Переменные с ресурсами машин
 variable "vm_resources" {

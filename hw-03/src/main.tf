@@ -9,7 +9,7 @@ resource "yandex_vpc_subnet" "develop" {
   v4_cidr_blocks = var.default_cidr
 }
 
-#Разобраться с инвентаризацией
+#Инвентаризациея
 resource "local_file" "hosts_cfg" {
   content = templatefile("${path.module}/hosts.tftpl",
     { webservers1 =  yandex_compute_instance.platform
