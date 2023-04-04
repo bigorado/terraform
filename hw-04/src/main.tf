@@ -1,34 +1,19 @@
-#resource "yandex_vpc_network" "develop" {
-#  name = var.vpc_name
-#}
-#resource "yandex_vpc_subnet" "develop" {
-#  name           = var.vpc_name
-#  zone           = var.default_zone
-#  network_id     = yandex_vpc_network.develop.id
-#  v4_cidr_blocks = var.default_cidr
-#}
-
-#создаем облачную сеть
-resource "yandex_vpc_network" "develop" {
-  name = "develop"
-}
-
-#создаем подсеть
-resource "yandex_vpc_subnet" "develop" {
-  name           = "develop-ru-central1-a"
-  zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.develop.id
-  v4_cidr_blocks = ["10.0.1.0/24"]
+module "vpc" {
+  source = "./vpc"
+  vpc_name = "first-vpc"
+  subnet_name = "first-subnet"
+  zone = "ru-central1-a"
+  subnet_cidr_block = "10.0.1.0/24"
 }
 
 module "test-vm" {
   source          = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name        = "develop"
-  network_id      = yandex_vpc_network.develop.id
+  network_id      = module.vpc.vpc_id
   subnet_zones    = ["ru-central1-a"]
-  subnet_ids      = [ yandex_vpc_subnet.develop.id ]
+  subnet_ids      = [ module.vpc.subnet_id ]
   instance_name   = "web"
-  instance_count  = 2
+  instance_count  = 1
   image_family    = "ubuntu-2004-lts"
   public_ip       = true
 
@@ -42,11 +27,6 @@ module "test-vm" {
 data "template_file" "cloudinit" {
  template = file("./cloud-init.yml")
  vars = {
-   authorized_keys = join("\n",authorized_keys)
-#   authorized_keys = file("var.authorized_keys")
-
-# vars = {
-#    authorized_keys = join("\n",authorized_keys)
-#    authorized_keys = "${var.authorized_keys}"
+ ssh_key = local.ssh_key
  }
 }
